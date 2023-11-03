@@ -17,7 +17,8 @@ parser.add_argument('--prompt', help='the prompt is the description of the image
 #parser.add_argument('--batch', help='the number of images to generate, default=1')
 parser.add_argument('--steps', help='between 0 and 100, <20 low details, >20 and <25 image reaches high quality, >25 more detailed, default=25')
 parser.add_argument('--remove', help='negative prompt i.e undesired characteristics to be removed')
-parser.add_argument('--amount',help='amount of images to generate')
+parser.add_argument('--amount', help='amount of images to generate')
+parser.add_argument('--cfg', help='between 1 and 30, 1 for maximum deviation/creativity from prompt, 30 for minimal deviation, default=7')
 
 args = parser.parse_args()
 
@@ -26,6 +27,7 @@ batch_size = 1
 steps = args.steps
 negative_prompt = args.remove
 amount = args.amount
+cfg_scale = args.cfg
 
 # Check if Arguments are given and assign default if none
 if not args.prompt:
@@ -43,12 +45,15 @@ if not args.remove:
 if not args.amount:
     amount = 4
 
+if not args.cfg:
+    cfg_scale = 7
 
 payload = json.dumps({
     "prompt": prompt,
     "steps": steps,
     "batch_size": batch_size,
     "negative_prompt" : negative_prompt,
+    "cfg_scale": cfg_scale,
 })
 
 headers = {
