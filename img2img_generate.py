@@ -16,12 +16,20 @@ parser = argparse.ArgumentParser(description="Generate Images with inspiration d
 parser.add_argument('--prompt', help='the prompt is the description of the image to be generated, default="painting"')
 parser.add_argument('--image', help='path to image, default="sample.jpg"')
 parser.add_argument('--amount', help='amount of images to generate, default=4')
+parser.add_argument('--steps', help='between 0 and 100, <20 low details, >20 and <25 image reaches high quality, >25 more detailed, default=25')
+parser.add_argument('--cfg', help='between 1 and 30, 1 for maximum deviation/creativity from prompt, 30 for minimal deviation, default=7')
+parser.add_argument('--remove', help='negative prompt i.e undesired characteristics to be removed, default=none')
+parser.add_argument('--denoise', help='denoise is a value between 0 and 1, where 0 = exact image, where 1 = completly different, default = 0.40')
 
 args = parser.parse_args()
 
 prompt = args.prompt
 image_file_path = args.image 
 amount = args.amount
+steps = args.steps
+cfg_scale = args.cfg
+negative_prompt = args.remove
+denoising_strength = args.denoise
 
 # Check if Arguments are given and assign default if none
 if not args.prompt:
@@ -33,6 +41,18 @@ if not args.image:
 if not args.amount:
     amount = 4
 
+if not args.steps:
+    steps = 25
+
+if not args.cfg:
+    cfg_scale = 7
+
+if not args.remove:
+    negative_prompt = ""
+
+if not args.denoise:
+    denoising_strength = 0.40
+
 # Read and encode the image files
 with open(image_file_path, "rb") as image_file:
     image_data = image_file.read()
@@ -43,6 +63,10 @@ payload = json.dumps(
     {
         "prompt": prompt,
         "init_images": [base64_data],
+				"steps": steps,
+				"cfg_scale": cfg_scale,
+				"negative_prompt": negative_prompt,
+				"denoising_strength": denoising_strength,
     }
 )
 
