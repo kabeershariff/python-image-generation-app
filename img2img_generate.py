@@ -10,8 +10,28 @@ api_key = apikey.key
 
 url = "https://api.wizmodel.com/sdapi/v1/img2img"
 
-# Local image file paths
-image_file_path = "sample.jpg"
+# Arguments for Generating Images
+parser = argparse.ArgumentParser(description="Generate Images with inspiration drawn from a given image using Wizmodel's Stable Diffusion API.")
+
+parser.add_argument('--prompt', help='the prompt is the description of the image to be generated, default="painting"')
+parser.add_argument('--image', help='path to image, default="sample.jpg"')
+parser.add_argument('--amount', help='amount of images to generate, default=4')
+
+args = parser.parse_args()
+
+prompt = args.prompt
+image_file_path = args.image 
+amount = args.amount
+
+# Check if Arguments are given and assign default if none
+if not args.prompt:
+    prompt = 'painting'
+
+if not args.image:
+    image_file_path = "sample.jpg"
+
+if not args.amount:
+    amount = 4
 
 # Read and encode the image files
 with open(image_file_path, "rb") as image_file:
@@ -21,7 +41,7 @@ with open(image_file_path, "rb") as image_file:
 # Create the payload with local image data
 payload = json.dumps(
     {
-        "prompt": "painting",
+        "prompt": prompt,
         "init_images": [base64_data],
     }
 )
@@ -30,7 +50,6 @@ headers = {"Content-Type": "application/json", "Authorization": "Bearer " + api_
 
 response = requests.request("POST", url, headers=headers, data=payload)
 
-amount = 4
 # Send requests for the number of images requested
 for i in range(int(amount)):
     print(f"[-] Generating {i+1} image out of {amount} images")
