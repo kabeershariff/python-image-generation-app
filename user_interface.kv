@@ -8,6 +8,16 @@
     slider_denoise_img2img : slider_denoise_img2img
     slider_amount_img2img : slider_amount_img2img
 
+    txt2img_generate : txt2img_generate
+    img2img_generate : img2img_generate
+
+    txt2img_prompt : txt2img_prompt
+    txt2img_negative_prompt : txt2img_negative_prompt
+
+    img2img_prompt : img2img_prompt
+    img2img_negative_prompt : img2img_negative_prompt
+    img2img_path : img2img_path
+
     MDScreen:
         MDTopAppBar:
             title: "Image Generation using AI"
@@ -22,6 +32,7 @@
                 icon: "text-box-plus"
             
                 MDTextField:
+                    id: txt2img_prompt
                     mode: "rectangle"
                     hint_text: "PROMPT"
                     helper_text: "Describe what you want"
@@ -29,6 +40,7 @@
                     pos_hint: {"center_x": .79, "center_y": .55}
 
                 MDTextField:
+                    id: txt2img_negative_prompt
                     mode: "rectangle"
                     hint_text: "NEGATIVE PROMPT"
                     helper_text: "Describe what you wouldn't want"
@@ -80,6 +92,7 @@
                     pos_hint: {"center_x": .84, "center_y": .15}
 
                 MDRaisedButton:
+                    id: txt2img_generate
                     text: "GENERATE"
                     pos_hint: {"center_x": .5, "center_y": .05}   
                     size_hint_x: .35
@@ -91,19 +104,29 @@
                 icon: "file-image-plus"
 
                 MDTextField:
+                    id: img2img_prompt
                     mode: "rectangle"
                     hint_text: "PROMPT"
                     helper_text: "Describe what you want"
                     size_hint_x: .40
-                    pos_hint: {"center_x": .79, "center_y": .65}
+                    pos_hint: {"center_x": .79, "center_y": .75}
 
                 MDTextField:
+                    id: img2img_negative_prompt
                     mode: "rectangle"
                     hint_text: "NEGATIVE PROMPT"
                     helper_text: "Describe what you wouldn't want"
                     size_hint_x: .40
-                    pos_hint: {"center_x": .79, "center_y": .55}
+                    pos_hint: {"center_x": .79, "center_y": .65}
                 
+                MDTextField:
+                    id: img2img_path
+                    mode: "rectangle"
+                    hint_text: "PATH TO IMAGE"
+                    helper_text: "Describe what you want with an image"
+                    size_hint_x: .40
+                    pos_hint: {"center_x": .79, "center_y": .55}
+
                 MDLabel:
                     text: "STEPS"
                     halign: "center"
@@ -165,6 +188,7 @@
                     pos_hint: {"center_x": .84, "center_y": .15}
 
                 MDRaisedButton:
+                    id: img2img_generate
                     text: "GENERATE"
                     pos_hint: {"center_x": .5, "center_y": .05}
                     size_hint_x: .35
