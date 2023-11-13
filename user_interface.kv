@@ -1,0 +1,27 @@
+<MainScreen>:
+    MDScreen:
+        MDTopAppBar:
+            title: "Image Generation using AI"
+            pos_hint: {"top": 1}
+
+        MDScreen:
+            MDBottomNavigation:
+                MDBottomNavigationItem:
+                    size_hint_y: 0.88
+                    name: "screen 1"
+                    text: "Text to Image"
+                    icon: "text-box-plus"
+                
+                    MDLabel:
+                        text: "txt2img"
+                        halign: "center"
+
+                MDBottomNavigationItem:
+                    size_hint_y: 0.88
+                    name: "screen 2"
+                    text: "Image to Image"
+                    icon: "file-image-plus"
+
+                    MDLabel:
+                        text: "img2img"
+                        halign: "center"
