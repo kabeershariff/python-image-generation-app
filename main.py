@@ -3,8 +3,9 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivymd.uix.imagelist import MDSmartTile
 import subprocess
-import threading
 from kivy.clock import mainthread
+from kivy.clock import Clock
+
 
 class MainScreen(Screen):
     slider_steps_txt2img = ObjectProperty()
@@ -37,7 +38,7 @@ class MainScreen(Screen):
         script_name = "img_generate.py"
         script_args = ['--prompt', f'"{prompt}"','--remove', f'{remove}', '--amount', f'{amount}', '--steps', f'{steps}', '--cfg', f'{cfg}']
         self.disable_widgets()
-        background_thread = threading.Thread(target=MainFunctions().command(script_name, script_args)).start()
+        self.command(script_name, script_args)
 
     @mainthread
     def start_img2img(self):
@@ -51,13 +52,24 @@ class MainScreen(Screen):
 
         script_name = "img2img_generate.py"
         script_args = ['--prompt',f'"{prompt}"', '--remove', f'"{remove}', '--image', f'{image}', '--amount', f'{amount}', '--steps', f'{steps}', '--cfg', f'{cfg}', '--denoise', f'{denoise}']
-        background_thread = threading.Thread(target=MainFunctions().command(script_name, script_args)).start()
-    
+        self.disable_widgets()
+        self.command(script_name, script_args)
+   
     def load_images():
         pass
 
     def clear_images():
         pass
+
+    def command(self, script, script_arguments):
+        print("running command")
+        self.process = subprocess.Popen(['python', script] + script_arguments)
+        Clock.schedule_interval(self.check_subprocess, 0.1)
+
+    def check_subprocess(self, dt):
+        if self.process.poll() is not None:
+            Clock.unschedule(self.check_subprocess)
+            self.enable_widgets()
 
     @mainthread
     def enable_widgets(self):
@@ -68,12 +80,6 @@ class MainScreen(Screen):
     def disable_widgets(self):
         self.txt2img_generate.disabled = True
         self.img2img_generate.disabled = True
-
-class MainFunctions:
-    def command(self, script, script_arguments):
-        print("running command")
-        subprocess.call(['python', script] + script_arguments)
-        MainScreen().enable_widgets()
 
 class user_interfaceApp(MDApp):
     def build(self):
