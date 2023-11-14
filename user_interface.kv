@@ -130,6 +130,7 @@
                     text: "GENERATE"
                     pos_hint: {"center_x": .5, "center_y": .05}   
                     size_hint_x: .35
+                    on_press: root.start_txt2img()
 
             MDBottomNavigationItem:
                 size_hint_y: 0.88
@@ -260,3 +261,4 @@
                     text: "GENERATE"
                     pos_hint: {"center_x": .5, "center_y": .05}
                     size_hint_x: .35
+                    on_press: root.start_img2img()
