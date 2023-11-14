@@ -30,7 +30,41 @@
                 name: "screen 1"
                 text: "Text to Image"
                 icon: "text-box-plus"
-            
+                
+                MDScrollView:
+                    size_hint_x: .56
+                    size_hint_y: .90
+                    pos_hint: {"center_x": .29, "center_y": .57}
+
+                    MDGridLayout:
+                        id: gallery
+                        size_hint_y: None
+                        cols: 2
+                        row_force_default: True
+                        row_default_height: 500
+                        height: self.minimum_height
+                        spacing: 10, 10
+                        MDSmartTile:
+                            source: "samples/sample.png"
+                            MDLabel:
+                                text: "sample_1"
+                        MDSmartTile:
+                            source: "samples/sample2.png"
+                            MDLabel:
+                                text: "sample_2"
+                        MDSmartTile:
+                            source: "samples/sample3.png"
+                            MDLabel:
+                                text: "sample_3"
+                        MDSmartTile:
+                            source: "samples/sample4.png"
+                            MDLabel:
+                                text: "sample_4"
+                        MDSmartTile:
+                            source: "samples/sample5.png"
+                            MDLabel:
+                                text: "sample_5"
+
                 MDTextField:
                     id: txt2img_prompt
                     mode: "rectangle"
@@ -102,6 +136,40 @@
                 name: "screen 2"
                 text: "Image to Image"
                 icon: "file-image-plus"
+
+                MDScrollView:
+                    size_hint_x: .56
+                    size_hint_y: .90
+                    pos_hint: {"center_x": .29, "center_y": .57}
+
+                    MDGridLayout:
+                        id: gallery
+                        size_hint_y: None
+                        cols: 2
+                        row_force_default: True
+                        row_default_height: 500
+                        height: self.minimum_height
+                        spacing: 10, 10
+                        MDSmartTile:
+                            source: "samples/sample.png"
+                            MDLabel:
+                                text: "sample_1"
+                        MDSmartTile:
+                            source: "samples/sample2.png"
+                            MDLabel:
+                                text: "sample_2"
+                        MDSmartTile:
+                            source: "samples/sample3.png"
+                            MDLabel:
+                                text: "sample_3"
+                        MDSmartTile:
+                            source: "samples/sample4.png"
+                            MDLabel:
+                                text: "sample_4"
+                        MDSmartTile:
+                            source: "samples/sample5.png"
+                            MDLabel:
+                                text: "sample_5"
 
                 MDTextField:
                     id: img2img_prompt

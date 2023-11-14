@@ -1,6 +1,7 @@
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
+from kivymd.uix.imagelist import MDSmartTile
 
 class MainScreen(Screen):
     slider_steps_txt2img = ObjectProperty()
@@ -23,6 +24,12 @@ class MainScreen(Screen):
         pass
 
     def start_img2img():
+        pass
+    
+    def load_images():
+        pass
+
+    def clear_images():
         pass
 
 class user_interfaceApp(MDApp):

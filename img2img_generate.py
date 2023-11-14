@@ -36,7 +36,7 @@ if not args.prompt:
     prompt = 'painting'
 
 if not args.image:
-    image_file_path = "sample.jpg"
+    image_file_path = "samples/sample.png"
 
 if not args.amount:
     amount = 4
