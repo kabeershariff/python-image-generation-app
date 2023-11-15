@@ -59,7 +59,22 @@ class MainScreen(Screen):
         self.command(script_name, script_args)
    
     def load_images(self):
-        pass
+        max_images = 12
+
+        for i in range(1, max_images+1):
+            image_path = f"generated_image_{i}.png"
+
+            try:
+                with open(image_path, 'rb'):
+                    tile_txt = MDSmartTile(source=image_path)
+                    tile_img = MDSmartTile(source=image_path)
+
+                    self.ids.txt2img_gallery.add_widget(tile_txt)
+                    self.ids.img2img_gallery.add_widget(tile_img)
+
+
+            except FileNotFoundError:
+                continue
 
     def clear_images(self):
         self.ids.txt2img_gallery.clear_widgets()
@@ -74,6 +89,7 @@ class MainScreen(Screen):
         if self.process.poll() is not None:
             Clock.unschedule(self.check_subprocess)
             self.clear_images()
+            self.load_images()
             self.enable_widgets()
 
     @mainthread
