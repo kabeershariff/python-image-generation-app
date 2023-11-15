@@ -1,7 +1,7 @@
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from kivymd.uix.imagelist import MDSmartTile
+from kivy.uix.image import Image
 import subprocess
 from kivy.clock import mainthread
 from kivy.clock import Clock
@@ -68,8 +68,11 @@ class MainScreen(Screen):
 
             try:
                 with open(image_path, 'rb'):
-                    tile_txt = MDSmartTile(source=image_path)
-                    tile_img = MDSmartTile(source=image_path)
+                    tile_txt = Image(source=image_path)
+                    tile_img = Image(source=image_path)
+
+                    tile_txt.reload()
+                    tile_img.reload()
 
                     self.ids.txt2img_gallery.add_widget(tile_txt)
                     self.ids.img2img_gallery.add_widget(tile_img)
