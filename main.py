@@ -5,7 +5,7 @@ from kivymd.uix.imagelist import MDSmartTile
 import subprocess
 from kivy.clock import mainthread
 from kivy.clock import Clock
-
+import os
 
 class MainScreen(Screen):
     slider_steps_txt2img = ObjectProperty()
@@ -41,6 +41,7 @@ class MainScreen(Screen):
         script_name = "img_generate.py"
         script_args = ['--prompt', f'"{prompt}"','--remove', f'{remove}', '--amount', f'{amount}', '--steps', f'{steps}', '--cfg', f'{cfg}']
         self.disable_widgets()
+        self.delete_images()
         self.command(script_name, script_args)
 
     @mainthread
@@ -56,6 +57,7 @@ class MainScreen(Screen):
         script_name = "img2img_generate.py"
         script_args = ['--prompt',f'"{prompt}"', '--remove', f'"{remove}', '--image', f'{image}', '--amount', f'{amount}', '--steps', f'{steps}', '--cfg', f'{cfg}', '--denoise', f'{denoise}']
         self.disable_widgets()
+        self.delete_images()
         self.command(script_name, script_args)
    
     def load_images(self):
@@ -79,6 +81,18 @@ class MainScreen(Screen):
     def clear_images(self):
         self.ids.txt2img_gallery.clear_widgets()
         self.ids.img2img_gallery.clear_widgets()
+
+    def delete_images(self):
+        max_images = 12
+
+        for i in range(1, max_images+1):
+            image_path = f"generated_image_{i}.png"
+
+            try:
+                os.remove(image_path)
+
+            except FileNotFoundError:
+                continue
 
     def command(self, script, script_arguments):
         print("running command")
