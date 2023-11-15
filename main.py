@@ -27,6 +27,9 @@ class MainScreen(Screen):
     txt2img_generate = ObjectProperty()
     img2img_generate = ObjectProperty()
 
+    txt2img_gallery = ObjectProperty()
+    img2img_gallery = ObjectProperty()
+
     @mainthread
     def start_txt2img(self):
         steps = int(self.slider_steps_txt2img.value)
@@ -55,11 +58,12 @@ class MainScreen(Screen):
         self.disable_widgets()
         self.command(script_name, script_args)
    
-    def load_images():
+    def load_images(self):
         pass
 
-    def clear_images():
-        pass
+    def clear_images(self):
+        self.ids.txt2img_gallery.clear_widgets()
+        self.ids.img2img_gallery.clear_widgets()
 
     def command(self, script, script_arguments):
         print("running command")
@@ -69,6 +73,7 @@ class MainScreen(Screen):
     def check_subprocess(self, dt):
         if self.process.poll() is not None:
             Clock.unschedule(self.check_subprocess)
+            self.clear_images()
             self.enable_widgets()
 
     @mainthread

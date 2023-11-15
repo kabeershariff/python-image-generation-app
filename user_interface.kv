@@ -21,6 +21,9 @@
     txt2img_generate : txt2img_generate
     img2img_generate : img2img_generate
 
+    txt2img_gallery : txt2img_gallery
+    img2img_gallery : img2img_gallery
+
     MDScreen:
         MDTopAppBar:
             title: "Image Generation using AI"
@@ -39,7 +42,7 @@
                     pos_hint: {"center_x": .29, "center_y": .57}
 
                     MDGridLayout:
-                        id: gallery
+                        id: txt2img_gallery
                         size_hint_y: None
                         cols: 2
                         row_force_default: True
@@ -146,7 +149,7 @@
                     pos_hint: {"center_x": .29, "center_y": .57}
 
                     MDGridLayout:
-                        id: gallery
+                        id: img2img_gallery
                         size_hint_y: None
                         cols: 2
                         row_force_default: True
